@@ -24,6 +24,12 @@ const (
 	ASSIGN = "="
 	// PLUS addition operator
 	PLUS = "+"
+	MINUS = "-"
+	BANG = "!"
+	ASTERISK = "*"
+	SLUSH = "/"
+	LT = "<"
+	LG = ">"
 
 	// delimiter
 
