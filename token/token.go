@@ -13,8 +13,8 @@ const (
 
 	// identifier + literal
 
-	// INDENT add, foobar, x, y, ...
-	INDENT = "INDENT"
+	// IDENT add, foobar, x, y, ...
+	IDENT = "IDENT"
 	// INT 12345
 	INT = "INT"
 
@@ -45,4 +45,20 @@ const (
 	LBRACE = "{"
 	// RBRACE right brace
 	RBRACE = "}"
+
+	FUNCTION = "FUNCTION"
+
+	LET = "LET"
 )
+
+var keywords = map[string]TokenType{
+	"fn": FUNCTION,
+	"let": LET,
+}
+
+func LookupIdent(ident string) TokenType  {
+	if tok, ok := keywords[ident];ok {
+		return tok
+	}
+	return IDENT
+}
