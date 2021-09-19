@@ -64,6 +64,18 @@ func (p *Parser) parseLetStatement() *ast.LetStatement {
 }
 
 /*
+parseReturnStatement
+return文の構文解析を行う
+ */
+func (p *Parser) parseReturnStatement() *ast.ReturnStatement {
+	stmt := &ast.ReturnStatement{Token: p.curToken}
+	if !p.curTokenIs(token.SEMICOLON) {
+		p.nextToken()
+	}
+	return stmt
+}
+
+/*
 parserStatement
 文の構文解析を行う
  */
@@ -71,6 +83,8 @@ func (p *Parser) parserStatement() ast.Statement {
 	switch p.curToken.Type {
 	case token.LET:
 		return p.parseLetStatement()
+	case token.RETURN:
+		return p.parseReturnStatement()
 	default:
 		return nil
 	}
