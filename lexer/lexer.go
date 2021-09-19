@@ -3,18 +3,18 @@ package lexer
 import "interpreter/token"
 
 type Lexer struct {
-	input string
-	position int // current char index
+	input        string
+	position     int // current char index
 	readPosition int // next char index
-	ch byte
+	ch           byte
 }
 
-func New(input string) *Lexer  {
+func New(input string) *Lexer {
 	l := &Lexer{input: input}
 	l.readChar()
 	return l
 }
-func (l *Lexer) readChar()  {
+func (l *Lexer) readChar() {
 	if l.readPosition >= len(l.input) {
 		l.ch = 0
 	} else {
@@ -28,7 +28,7 @@ func newToken(tokenType token.TokenType, ch byte) token.Token {
 	return token.Token{Type: tokenType, Literal: string(ch)}
 }
 
-func isLetter(ch byte) bool  {
+func isLetter(ch byte) bool {
 	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'z' || ch == '_'
 }
 
@@ -60,7 +60,7 @@ func (l *Lexer) peekChar() byte {
 	}
 }
 
-func (l *Lexer) skipWhitespace()  {
+func (l *Lexer) skipWhitespace() {
 	for l.ch == ' ' || l.ch == '\t' || l.ch == '\n' || l.ch == '\r' {
 		l.readChar()
 	}
@@ -124,7 +124,7 @@ func (l *Lexer) NextToken() token.Token {
 			tok.Type = token.INT
 			tok.Literal = l.readNumber()
 			return tok
-		}else {
+		} else {
 			tok = newToken(token.ILLEGAL, l.ch)
 		}
 	}

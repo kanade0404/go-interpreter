@@ -27,19 +27,19 @@ func testLetStatement(t *testing.T, s ast.Statement, name string) bool {
 	return true
 }
 
-func checkParserErrors(t *testing.T, p *Parser)  {
+func checkParserErrors(t *testing.T, p *Parser) {
 	errors := p.Errors()
 	if len(errors) == 0 {
 		return
 	}
 	t.Errorf("parser has %d errors", len(errors))
-	for _, msg := range errors{
+	for _, msg := range errors {
 		t.Errorf("parser error: %q", msg)
 	}
 	t.FailNow()
 }
 
-func TestLetStatements(t *testing.T)  {
+func TestLetStatements(t *testing.T) {
 	input := `
 let x = 5;
 let y = 10;
@@ -58,14 +58,14 @@ let 838383;
 	if len(program.Statements) != 3 {
 		t.Fatalf("program.Statements does not contain 3 statements. got=%d", len(program.Statements))
 	}
-	tests := []struct{
+	tests := []struct {
 		expectedIdentifier string
 	}{
 		{"x"},
 		{"y"},
 		{"foobar"},
 	}
-	for i, tt := range tests{
+	for i, tt := range tests {
 		stmt := program.Statements[i]
 		if !testLetStatement(t, stmt, tt.expectedIdentifier) {
 			return
@@ -86,7 +86,7 @@ return 993322;
 	if len(program.Statements) != 3 {
 		t.Fatalf("program.Statements does not contain 3 statements. got=%d", len(program.Statements))
 	}
-	for _, stmt := range program.Statements{
+	for _, stmt := range program.Statements {
 		returnStmt, ok := stmt.(*ast.ReturnStatement)
 		if !ok {
 			t.Errorf("stmt not *ast.ReturnStatement. got=%T", stmt)
