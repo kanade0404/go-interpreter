@@ -19,15 +19,15 @@ type Expression interface {
 	expressionNode()
 }
 
+// Program
+
 type Program struct {
 	Statements []Statement
 }
 
-type Identifier struct {
-	Token token.Token
-	Value string
-}
-
+/*
+TokenLiteral
+*/
 func (p *Program) TokenLiteral() string {
 	if len(p.Statements) > 0 {
 		return p.Statements[0].TokenLiteral()
@@ -44,20 +44,40 @@ func (p *Program) String() string {
 	return out.String()
 }
 
-type LetStatement struct {
+// Identifier
+
+/*
+Identifier
+識別子の型
+*/
+type Identifier struct {
 	Token token.Token
-	Name  *Identifier
-	Value Expression
+	Value string
 }
 
 func (i *Identifier) expressionNode() {}
 
+func (i *Identifier) String() string {
+	return i.Value
+}
+
+/*
+TokenLiteral
+*/
 func (i *Identifier) TokenLiteral() string {
 	return i.Token.Literal
 }
 
-func (i *Identifier) String() string {
-	return i.Value
+// LetStatement
+
+/*
+LetStatement
+let文の型
+*/
+type LetStatement struct {
+	Token token.Token
+	Name  *Identifier
+	Value Expression
 }
 
 func (s *LetStatement) statementNode() {}
@@ -77,6 +97,12 @@ func (s *LetStatement) String() string {
 	return out.String()
 }
 
+// ReturnStatement
+
+/*
+ReturnStatement
+return文の型
+*/
 type ReturnStatement struct {
 	Token       token.Token // 'return' トークン
 	ReturnValue Expression
@@ -98,15 +124,22 @@ func (r *ReturnStatement) String() string {
 	return out.String()
 }
 
+// ExpressionStatement
+
+/*
+ExpressionStatement
+式の型
+*/
 type ExpressionStatement struct {
 	Token token.Token
 	Expression
 }
 
+func (e *ExpressionStatement) statementNode() {}
+
 func (e *ExpressionStatement) String() string {
 	if e.Expression != nil {
 		return e.Expression.String()
 	}
-	// TODO
 	return ""
 }
