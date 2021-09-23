@@ -23,10 +23,10 @@ if (5 < 10) {
 10 == 10;
 10 != 9;
 `
-	tests := []struct{
-		expectedType token.TokenType
+	tests := []struct {
+		expectedType    token.TokenType
 		expectedLiteral string
-	} {
+	}{
 		// let five = 5;
 		{token.LET, "let"},
 		{token.IDENT, "five"},
@@ -80,7 +80,7 @@ if (5 < 10) {
 		{token.INT, "5"},
 		{token.LT, "<"},
 		{token.INT, "10"},
-		{token.LG, ">"},
+		{token.GT, ">"},
 		{token.INT, "5"},
 		{token.SEMICOLON, ";"},
 		// if (5 < 10) {
@@ -118,7 +118,7 @@ if (5 < 10) {
 		{token.EOF, ""},
 	}
 	l := New(input)
-	for i, tt := range tests{
+	for i, tt := range tests {
 		tok := l.NextToken()
 		if tok.Type != tt.expectedType {
 			t.Fatalf("tests[%d] - tokentype wrong, expected=%q, got=%q", i, tt.expectedType, tok.Type)
