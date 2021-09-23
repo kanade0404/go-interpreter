@@ -80,7 +80,7 @@ if (5 < 10) {
 		{token.INT, "5"},
 		{token.LT, "<"},
 		{token.INT, "10"},
-		{token.LG, ">"},
+		{token.GT, ">"},
 		{token.INT, "5"},
 		{token.SEMICOLON, ";"},
 		// if (5 < 10) {

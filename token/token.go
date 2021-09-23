@@ -29,7 +29,7 @@ const (
 	ASTERISK = "*"
 	SLUSH    = "/"
 	LT       = "<"
-	LG       = ">"
+	GT       = ">"
 	EQ       = "=="
 	NOT_EQ   = "!="
 
