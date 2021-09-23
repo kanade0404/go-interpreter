@@ -70,15 +70,15 @@ func TestLetStatements(t *testing.T) {
 }
 
 func TestReturnStatement(t *testing.T) {
-	tests := []struct{
-		input string
+	tests := []struct {
+		input         string
 		expectedValue interface{}
-	} {
+	}{
 		{"return 5;", 5},
 		{"return true;", true},
 		{"return foobar;", "foobar"},
 	}
-	for _, tt := range tests{
+	for _, tt := range tests {
 		l := lexer.New(tt.input)
 		p := New(l)
 		program := p.ParseProgram()
