@@ -40,6 +40,10 @@ func Eval(node ast.Node) object.Object {
 		left := Eval(node.Left)
 		right := Eval(node.Right)
 		return evalInfixExpression(node.Operator, left, right)
+	case *ast.BlockStatement:
+		return evalStatements(node.Statements)
+	case *ast.IfExpression:
+		return evalIfExpression(node)
 	}
 	return nil
 }
@@ -151,5 +155,37 @@ func evalIntegerInfixExpression(operator string, left, right object.Object) obje
 		return nativeBoolToBooleanObject(leftVal != rightVal)
 	default:
 		return NULL
+	}
+}
+
+/*
+evalIfExpression
+IF文を評価
+ */
+func evalIfExpression(e *ast.IfExpression) object.Object {
+	condition := Eval(e.Condition)
+	if isTruthy(condition) {
+		return Eval(e.Consequence)
+	}else if e.Alternative != nil {
+		return Eval(e.Alternative)
+	} else {
+		return NULL
+	}
+}
+
+/*
+isTruthy
+NULLやfalseでは無いならtrueを返す
+ */
+func isTruthy(obj object.Object) bool {
+	switch obj {
+	case NULL:
+		return false
+	case TRUE:
+		return true
+	case FALSE:
+		return false
+	default:
+		return true
 	}
 }
